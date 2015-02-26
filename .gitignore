@@ -1,0 +1,110 @@
+#include <iostream>
+#include <fstream>
+#include <Windows.h>
+#include <string>
+#include <iomanip>
+using namespace std;
+/*
+Durmchapel
+Beggar's Hole
+Strength
+Constitution
+*/
+void introduction()
+{
+HANDLE hConsole;
+hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+SetConsoleTextAttribute(hConsole, 3);
+cout << "Welcome to the world of ";
+SetConsoleTextAttribute(hConsole, 48);
+cout << "Darkholm";
+SetConsoleTextAttribute(hConsole, 3);
+cout << "!" << endl;
+cout << endl;
+SetConsoleTextAttribute(hConsole, 3);
+cout << "Your choices will reflect the twists and turns of your adventure." << endl;
+cout << "May they lead you to victory (or death)!" << endl;
+cout << endl;
+}
+int pcClass()
+{
+int pcClass;
+char exit = 'n';
+do
+{
+/*cout << "What class would you like to be?" << endl;
+cout << "1. Healer" << endl;
+cout << "2. Rouge" << endl;
+cout << "3. Warrior" << endl;
+cout << "4. Gaurd" << endl;*/
+cin >> pcClass;
+switch (pcClass)
+{
+case 1:
+cout << "Healers have spells that can heal allies and themselves.";
+case 2:
+cout << "Rouges are swift and can quickly dodge or easily pull off slight of hand tricks.";
+default:
+break;
+}
+cout << "are you sure?: " << endl;
+cin >> exit;
+} while (exit == 'n');
+return pcClass;
+}
+int storyline(int part)
+{
+switch (part)
+{
+case 0:
+cout << "You awaken to a new day." << endl;
+//status(hp); //returns a status message based on hp "you feel like you can take on anything!", "Maybe you should "
+cout << "What would you like to do today?" << endl;
+break;
+case 1:
+default:
+break;
+}
+return part;
+}
+void main()
+{
+int storyPart = 0;
+string name, saveName;
+char yesNo;
+HANDLE hConsole;
+ofstream outFile;
+ifstream inFile;
+inFile.open("File.txt");
+outFile.open("File.txt");
+introduction();
+cout << "Do you have a previous Save file? (y/n) : ";
+cin >> yesNo;
+tolower(yesNo);
+if (yesNo == 'y')
+{
+cout << "Please enter save name: ";
+cin >> name;
+while (!inFile.eof())
+{
+inFile >> name;
+if (saveName == name)
+{
+break;
+}
+}
+}
+else
+{
+cout << "Lets begin character creation!" << endl;
+cout << endl;
+cout << "Name: ";
+cin >> name;
+outFile << name << "/t";
+}
+cout << "Your name is: " << name;
+hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+cout << endl;
+inFile.close();
+outFile.close();
+}
